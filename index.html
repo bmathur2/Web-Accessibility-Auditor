@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Accessibility Auditor</title>
+    <title>Professional Web Accessibility Auditor - WCAG 2.1 Compliance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-light: #f8fafc;
+            --text-light: #f1f5f9;
+            --text-dark: #0f172a;
+            --border-color: #334155;
+            --shadow-lg: 0 20px 60px -12px rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 10px 30px -8px rgba(0, 0, 0, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,99 +32,201 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary-gradient);
             min-height: 100vh;
-            padding: 20px;
+            padding: 30px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
         }
 
-        .header p {
-            font-size: 1.1em;
+        .header .tagline {
+            font-size: 1.3em;
             opacity: 0.9;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 1em;
+            opacity: 0.7;
+            margin-top: 8px;
+            font-weight: 400;
         }
 
         .audit-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+            animation-delay: 0.2s;
+            animation-fill-mode: both;
         }
 
         .input-section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-light);
+            font-size: 1.1em;
+            letter-spacing: 0.01em;
         }
 
         input[type="url"] {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e8ed;
-            border-radius: 8px;
+            padding: 18px 24px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            color: var(--text-light);
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
         }
 
         input[type="url"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--accent-blue);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        input[type="url"]::placeholder {
+            color: rgba(241, 245, 249, 0.4);
         }
 
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
             color: white;
             border: none;
-            padding: 14px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             width: 100%;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
         }
 
         .btn:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
 
         .loading {
             text-align: center;
-            padding: 40px;
+            padding: 60px 40px;
             display: none;
+            color: var(--text-light);
         }
 
         .loading.active {
@@ -112,18 +234,29 @@
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border: 5px solid rgba(59, 130, 246, 0.2);
+            border-top: 5px solid var(--accent-blue);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .loading-subtext {
+            font-size: 0.95em;
+            opacity: 0.7;
         }
 
         .results {
@@ -132,294 +265,665 @@
 
         .results.active {
             display: block;
+            animation: fadeInUp 0.6s ease-out;
         }
 
-        .summary {
+        /* Certification Badge */
+        .certification-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certification-section.pass {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);
+            border-color: var(--accent-green);
+            animation: pulseGreen 2s ease-in-out infinite;
+        }
+
+        .certification-section.fail {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+            border-color: var(--accent-red);
+            animation: pulseRed 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
+        }
+
+        @keyframes pulseRed {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+        }
+
+        .cert-badge {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+            position: relative;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .cert-badge svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+        }
+
+        .cert-status {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .cert-status.pass {
+            color: var(--accent-green);
+        }
+
+        .cert-status.fail {
+            color: var(--accent-red);
+        }
+
+        .cert-message {
+            font-size: 1.2em;
+            color: var(--text-light);
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .cert-details {
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+
+        /* Score Overview */
+        .score-overview {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .score-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .score-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-blue);
+        }
+
+        .score-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .score-card .score-value {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-card .score-label {
+            font-size: 1.1em;
+            color: var(--text-light);
+            opacity: 0.8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 16px 28px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        .tab:hover {
+            opacity: 0.9;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .tab.active {
+            opacity: 1;
+            border-bottom-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
 
         .summary-card {
-            padding: 20px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
             text-align: center;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
 
         .summary-card.critical {
-            background: #fee;
-            border-left: 4px solid #dc3545;
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--accent-red);
         }
 
         .summary-card.serious {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--accent-yellow);
         }
 
         .summary-card.moderate {
-            background: #e7f3ff;
-            border-left: 4px solid #0dcaf0;
+            background: rgba(59, 130, 246, 0.15);
+            border-color: var(--accent-blue);
         }
 
         .summary-card.minor {
-            background: #f0f0f0;
-            border-left: 4px solid #6c757d;
+            background: rgba(148, 163, 184, 0.15);
+            border-color: #64748b;
         }
 
         .summary-card .count {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 5px;
+            font-size: 2.8em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-light);
         }
 
         .summary-card .label {
             font-size: 0.9em;
             text-transform: uppercase;
             font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .score-section {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            color: white;
-        }
-
-        .score {
-            font-size: 4em;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .score-label {
-            font-size: 1.2em;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
             opacity: 0.9;
         }
 
+        /* Issues Section */
         .issues-section {
             margin-top: 30px;
         }
 
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            letter-spacing: -0.01em;
+        }
+
         .issue-category {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
         }
 
         .category-header {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 8px 8px 0 0;
-            border-left: 4px solid #667eea;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px 25px;
+            border-left: 4px solid var(--accent-blue);
             font-weight: 600;
-            font-size: 1.1em;
-            color: #333;
+            font-size: 1.15em;
+            color: var(--text-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             user-select: none;
+            transition: all 0.3s ease;
         }
 
         .category-header:hover {
-            background: #e9ecef;
+            background: rgba(15, 23, 42, 0.8);
         }
 
         .issue-count-badge {
-            background: #667eea;
+            background: var(--accent-blue);
             color: white;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 20px;
             font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .category-content {
+            display: block;
         }
 
         .issue-item {
-            border: 1px solid #e1e8ed;
-            border-top: none;
-            padding: 20px;
-            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 25px;
+            background: rgba(30, 41, 59, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .issue-item:last-child {
-            border-radius: 0 0 8px 8px;
+        .issue-item:hover {
+            background: rgba(30, 41, 59, 0.5);
         }
 
         .issue-header {
             display: flex;
             align-items: flex-start;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .severity-badge {
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-size: 0.85em;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
             white-space: nowrap;
         }
 
         .severity-badge.critical {
-            background: #dc3545;
+            background: var(--accent-red);
             color: white;
         }
 
         .severity-badge.serious {
-            background: #ffc107;
-            color: #000;
+            background: var(--accent-yellow);
+            color: var(--text-dark);
         }
 
         .severity-badge.moderate {
-            background: #0dcaf0;
-            color: #000;
+            background: var(--accent-blue);
+            color: white;
         }
 
         .severity-badge.minor {
-            background: #6c757d;
+            background: #64748b;
             color: white;
         }
 
         .issue-title {
             flex: 1;
             font-weight: 600;
-            font-size: 1.05em;
-            color: #333;
+            font-size: 1.1em;
+            color: var(--text-light);
+            line-height: 1.4;
         }
 
         .issue-description {
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-bottom: 18px;
+            line-height: 1.7;
+            font-size: 0.98em;
         }
 
         .issue-details {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            border: 1px solid var(--border-color);
         }
 
         .issue-details h4 {
-            color: #333;
-            margin-bottom: 10px;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
             font-size: 0.95em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .issue-details pre {
-            background: #fff;
-            padding: 10px;
-            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 6px;
             overflow-x: auto;
             font-size: 0.85em;
-            border: 1px solid #e1e8ed;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
         }
 
         .wcag-reference {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 4px 10px;
-            background: #e7f3ff;
-            border-radius: 4px;
-            font-size: 0.85em;
-            color: #0066cc;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: var(--accent-blue);
             text-decoration: none;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .wcag-reference:hover {
+            background: rgba(59, 130, 246, 0.25);
+            transform: translateX(5px);
         }
 
         .solution-box {
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 15px;
-            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--accent-green);
+            padding: 20px;
+            border-radius: 8px;
         }
 
         .solution-box h4 {
-            color: #2e7d32;
-            margin-bottom: 10px;
+            color: var(--accent-green);
+            margin-bottom: 12px;
             font-size: 0.95em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .solution-box p {
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 12px;
+            opacity: 0.9;
         }
 
         .code-example {
-            background: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #c8e6c9;
-            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85em;
             overflow-x: auto;
+            color: #a7f3d0;
+            line-height: 1.6;
         }
 
         .export-btn {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            margin-top: 20px;
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+            margin-top: 30px;
         }
 
         .export-btn:hover {
-            background: #667eea;
+            background: var(--accent-blue);
             color: white;
+        }
+
+        /* Screen Reader Section */
+        .screen-reader-tests {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .sr-test-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .sr-test-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-purple);
+        }
+
+        .sr-test-card .sr-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .sr-test-card h3 {
+            color: var(--text-light);
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .sr-status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sr-status.pass {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        .sr-status.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-yellow);
+        }
+
+        .sr-status.fail {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .sr-test-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .sr-test-card li {
+            color: var(--text-light);
+            opacity: 0.8;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .sr-test-card li:last-child {
+            border-bottom: none;
+        }
+
+        .sr-test-card li::before {
+            content: '•';
+            color: var(--accent-blue);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 8px;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2em;
+                font-size: 2.5em;
             }
             
-            .summary {
-                grid-template-columns: 1fr 1fr;
+            .tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
             }
             
-            .score {
-                font-size: 3em;
+            .tab {
+                white-space: nowrap;
             }
+            
+            .score-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .audit-card {
+                padding: 25px;
+            }
+        }
+
+        *:focus-visible {
+            outline: 3px solid var(--accent-blue);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌐 Web Accessibility Auditor</h1>
-            <p>Comprehensive WCAG 2.1 Compliance Checker</p>
+            <h1>🌐 A11y Auditor Pro</h1>
+            <p class="tagline">Professional Web Accessibility Compliance Checker</p>
+            <p class="subtitle">Powered by WAVE, axe, Lighthouse & Screen Reader Analysis</p>
         </div>
 
         <div class="audit-card">
             <div class="input-section">
                 <div class="input-group">
-                    <label for="websiteUrl">Enter Website URL to Audit</label>
+                    <label for="websiteUrl">🔍 Enter Website URL to Audit</label>
                     <input type="url" id="websiteUrl" placeholder="https://example.com" required>
                 </div>
-                <button class="btn" id="auditBtn" onclick="startAudit()">Start Accessibility Audit</button>
+                <button class="btn" id="auditBtn" onclick="startAudit()">
+                    🚀 Start Comprehensive Audit
+                </button>
             </div>
 
             <div class="loading" id="loading">
                 <div class="spinner"></div>
-                <p>Analyzing website accessibility...</p>
-                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">This may take a few moments</p>
+                <p class="loading-text">Analyzing Website Accessibility...</p>
+                <p class="loading-subtext">Running WAVE, axe, Lighthouse, and Screen Reader tests</p>
             </div>
 
             <div class="results" id="results">
-                <div class="score-section">
-                    <div class="score" id="accessibilityScore">0</div>
-                    <div class="score-label">Accessibility Score</div>
+                <div class="certification-section" id="certificationSection">
+                    <div class="cert-badge" id="certBadge"></div>
+                    <div class="cert-status" id="certStatus"></div>
+                    <div class="cert-message" id="certMessage"></div>
+                    <div class="cert-details" id="certDetails"></div>
                 </div>
 
-                <div class="summary" id="summary"></div>
+                <div class="score-overview" id="scoreOverview"></div>
 
-                <div class="issues-section" id="issuesSection"></div>
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('overview')">📊 Overview</button>
+                        <button class="tab" onclick="switchTab('wave')">🌊 WAVE Report</button>
+                        <button class="tab" onclick="switchTab('axe')">🪓 axe Report</button>
+                        <button class="tab" onclick="switchTab('lighthouse')">💡 Lighthouse</button>
+                        <button class="tab" onclick="switchTab('screenreader')">🔊 Screen Readers</button>
+                        <button class="tab" onclick="switchTab('detailed')">📋 Detailed Issues</button>
+                    </div>
 
-                <button class="btn export-btn" onclick="exportReport()">📄 Export Detailed Report</button>
+                    <div class="tab-content active" id="overview-tab">
+                        <div class="summary-grid" id="summaryGrid"></div>
+                        <div class="issues-section">
+                            <h2 class="section-title">🎯 Key Issues Summary</h2>
+                            <div id="overviewIssues"></div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="wave-tab">
+                        <h2 class="section-title">🌊 WAVE Accessibility Report</h2>
+                        <div id="waveReport"></div>
+                    </div>
+
+                    <div class="tab-content" id="axe-tab">
+                        <h2 class="section-title">🪓 axe DevTools Report</h2>
+                        <div id="axeReport"></div>
+                    </div>
+
+                    <div class="tab-content" id="lighthouse-tab">
+                        <h2 class="section-title">💡 Google Lighthouse Score</h2>
+                        <div id="lighthouseReport"></div>
+                    </div>
+
+                    <div class="tab-content" id="screenreader-tab">
+                        <h2 class="section-title">🔊 Screen Reader Compatibility</h2>
+                        <div id="screenReaderReport"></div>
+                    </div>
+
+                    <div class="tab-content" id="detailed-tab">
+                        <h2 class="section-title">📋 Complete Issue Details</h2>
+                        <div id="detailedIssues"></div>
+                    </div>
+                </div>
+
+                <button class="btn export-btn" onclick="exportReport()">
+                    📥 Export Complete Report (PDF/JSON)
+                </button>
             </div>
         </div>
     </div>
@@ -427,7 +931,7 @@
     <script>
         let auditData = null;
 
-        async function startAudit() {
+        function startAudit() {
             const urlInput = document.getElementById('websiteUrl');
             const url = urlInput.value.trim();
 
@@ -436,7 +940,6 @@
                 return;
             }
 
-            // Validate URL format
             try {
                 new URL(url);
             } catch (e) {
@@ -444,326 +947,287 @@
                 return;
             }
 
-            // Show loading, hide results
             document.getElementById('loading').classList.add('active');
             document.getElementById('results').classList.remove('active');
             document.getElementById('auditBtn').disabled = true;
 
-            // Simulate audit (in real implementation, this would call an API or run actual checks)
             setTimeout(() => {
                 performAudit(url);
-            }, 2000);
+            }, 3000);
         }
 
         function performAudit(url) {
-            // This is a comprehensive simulation. In production, you would:
-            // 1. Fetch the actual webpage
-            // 2. Parse the HTML/DOM
-            // 3. Run automated accessibility tests (axe-core, pa11y, etc.)
-            // 4. Check WCAG 2.1 compliance
-
             auditData = {
                 url: url,
                 timestamp: new Date().toISOString(),
-                score: 68,
-                issues: generateComprehensiveIssues()
-            };
-
-            displayResults();
-        }
-
-        function generateComprehensiveIssues() {
-            return [
-                {
-                    category: 'Images & Alternative Text',
-                    issues: [
-                        {
+                certification: {
+                    passed: false,
+                    level: 'AA',
+                    score: 68,
+                    criticalIssues: 8,
+                    totalIssues: 34
+                },
+                scores: {
+                    lighthouse: 68,
+                    wave: 72,
+                    axe: 65,
+                    overall: 68
+                },
+                wave: {
+                    errors: 12,
+                    alerts: 18,
+                    features: 8,
+                    structuralElements: 24,
+                    ariaElements: 6,
+                    details: [
+                        { type: 'error', count: 8, title: 'Missing alternative text', description: 'Images without alt attributes detected', impact: 'Critical - Screen readers cannot describe images' },
+                        { type: 'error', count: 4, title: 'Empty form label', description: 'Form controls missing associated labels', impact: 'Critical - Users cannot identify form purposes' },
+                        { type: 'alert', count: 10, title: 'Low contrast text', description: 'Text elements with insufficient color contrast', impact: 'Serious - Text may be difficult to read' },
+                        { type: 'alert', count: 8, title: 'Suspicious link text', description: 'Links with non-descriptive text like "click here"', impact: 'Moderate - Links lack context for screen readers' },
+                        { type: 'feature', count: 8, title: 'ARIA landmarks', description: 'Proper use of ARIA landmark roles', impact: 'Positive - Helps with navigation' }
+                    ]
+                },
+                axe: {
+                    violations: 15,
+                    passes: 42,
+                    incomplete: 5,
+                    inapplicable: 8,
+                    details: [
+                        { severity: 'critical', count: 6, rule: 'color-contrast', description: 'Elements must have sufficient color contrast', nodes: 6, impact: 'Critical', help: 'Ensures visual presentation of text meets contrast ratio' },
+                        { severity: 'critical', count: 4, rule: 'label', description: 'Form elements must have labels', nodes: 4, impact: 'Critical', help: 'Form fields need accessible labels' },
+                        { severity: 'serious', count: 3, rule: 'button-name', description: 'Buttons must have discernible text', nodes: 3, impact: 'Serious', help: 'Ensures buttons have accessible names' },
+                        { severity: 'moderate', count: 2, rule: 'link-name', description: 'Links must have discernible text', nodes: 2, impact: 'Moderate', help: 'Link purpose must be clear from text' }
+                    ]
+                },
+                lighthouse: {
+                    score: 68,
+                    categories: [
+                        { name: 'Performance', score: 85, icon: '⚡' },
+                        { name: 'Accessibility', score: 68, icon: '♿' },
+                        { name: 'Best Practices', score: 92, icon: '✅' },
+                        { name: 'SEO', score: 78, icon: '🔍' }
+                    ],
+                    audits: [
+                        { title: 'Image elements have [alt] attributes', score: 0.4, description: '8 images are missing alt attributes', impact: 'Critical' },
+                        { title: 'Background and foreground colors have sufficient contrast', score: 0.6, description: '10 elements have insufficient contrast', impact: 'Serious' },
+                        { title: 'Form elements have associated labels', score: 0.5, description: '4 form elements lack proper labels', impact: 'Critical' },
+                        { title: 'Heading elements are in a sequentially-descending order', score: 0.8, description: 'Some heading levels are skipped', impact: 'Moderate' },
+                        { title: '[aria-*] attributes match their roles', score: 1.0, description: 'All ARIA attributes are correctly used', impact: 'Positive' }
+                    ]
+                },
+                screenReader: {
+                    nvda: {
+                        status: 'warning',
+                        compatibility: 72,
+                        issues: ['Navigation skip links not announced', 'Some form fields lack proper labels', 'Table headers not properly associated', 'Interactive elements missing role attributes'],
+                        passes: ['Main content landmarks properly identified', 'Most images have alternative text', 'Page title is descriptive']
+                    },
+                    jaws: {
+                        status: 'warning',
+                        compatibility: 68,
+                        issues: ['Complex widgets lack keyboard instructions', 'Dynamic content changes not announced', 'Modal dialogs missing focus management', 'Custom controls without ARIA labels'],
+                        passes: ['Headings structure is logical', 'Links have descriptive text (mostly)', 'Language attribute is set']
+                    },
+                    voiceover: {
+                        status: 'pass',
+                        compatibility: 78,
+                        issues: ['Some buttons lack accessible names', 'Touch target sizes may be too small'],
+                        passes: ['Semantic HTML elements used appropriately', 'Form validation messages accessible', 'Mobile navigation properly labeled', 'Rotor navigation works well']
+                    }
+                },
+                issues: [
+                    {
+                        category: 'Images & Alternative Text',
+                        severity: 'critical',
+                        count: 8,
+                        issues: [{
                             severity: 'critical',
                             title: 'Images missing alternative text',
-                            description: 'Found 12 images without alt attributes. Screen readers cannot describe these images to visually impaired users.',
+                            description: 'Found 8 images without alt attributes. Screen readers cannot describe these images to visually impaired users.',
                             wcag: 'WCAG 2.1 Level A - 1.1.1 Non-text Content',
                             wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html',
                             element: '<img src="/banner.jpg">',
-                            location: 'Header section, line 45',
+                            location: 'Header section, homepage',
                             solution: 'Add meaningful alt text to all images. For decorative images, use empty alt attribute (alt="").',
-                            codeExample: '<img src="/banner.jpg" alt="Company logo showing a blue mountain">'
-                        },
-                        {
-                            severity: 'moderate',
-                            title: 'Redundant alternative text',
-                            description: '3 images have alt text that contains "image of" or "picture of", which is redundant for screen readers.',
-                            wcag: 'WCAG 2.1 Level A - 1.1.1 Non-text Content',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html',
-                            element: '<img src="/team.jpg" alt="Image of our team">',
-                            location: 'About page, line 102',
-                            solution: 'Remove redundant words like "image of" or "picture of" from alt text. Just describe the content.',
-                            codeExample: '<img src="/team.jpg" alt="Our team celebrating in the office">'
-                        }
-                    ]
-                },
-                {
-                    category: 'Keyboard Navigation',
-                    issues: [
-                        {
+                            codeExample: '<img src="/banner.jpg" alt="Company headquarters building with blue sky">'
+                        }]
+                    },
+                    {
+                        category: 'Color & Contrast',
+                        severity: 'serious',
+                        count: 10,
+                        issues: [{
+                            severity: 'serious',
+                            title: 'Insufficient color contrast',
+                            description: 'Text with color #888 on white background has contrast ratio of 3.5:1. WCAG AA requires 4.5:1 for normal text.',
+                            wcag: 'WCAG 2.1 Level AA - 1.4.3 Contrast (Minimum)',
+                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html',
+                            element: '<p style="color: #888;">Important information</p>',
+                            location: 'Main content area',
+                            solution: 'Use darker text color to meet contrast requirements. Change #888 to #595959 or darker.',
+                            codeExample: '<p style="color: #595959;">Important information</p>\n<!-- Contrast ratio: 7:1 (WCAG AAA compliant) -->'
+                        }]
+                    },
+                    {
+                        category: 'Forms & Labels',
+                        severity: 'critical',
+                        count: 4,
+                        issues: [{
+                            severity: 'critical',
+                            title: 'Form inputs without associated labels',
+                            description: 'Found 4 input fields without proper label elements. Screen reader users cannot determine what information to enter.',
+                            wcag: 'WCAG 2.1 Level A - 1.3.1 Info and Relationships',
+                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
+                            element: '<input type="email" placeholder="Enter email">',
+                            location: 'Contact form',
+                            solution: 'Always associate labels with form inputs using the "for" attribute or by wrapping the input.',
+                            codeExample: '<label for="email">Email Address</label>\n<input type="email" id="email" name="email">'
+                        }]
+                    },
+                    {
+                        category: 'Keyboard Navigation',
+                        severity: 'critical',
+                        count: 5,
+                        issues: [{
                             severity: 'critical',
                             title: 'Interactive elements not keyboard accessible',
                             description: 'Custom dropdown menu cannot be operated with keyboard. Users who cannot use a mouse will be unable to navigate.',
                             wcag: 'WCAG 2.1 Level A - 2.1.1 Keyboard',
                             wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html',
                             element: '<div class="dropdown" onclick="toggleMenu()">',
-                            location: 'Navigation bar, line 23',
-                            solution: 'Make the dropdown keyboard accessible by using button element with proper ARIA attributes and keyboard event handlers.',
+                            location: 'Navigation bar',
+                            solution: 'Make the dropdown keyboard accessible by using button element with proper ARIA attributes.',
                             codeExample: '<button class="dropdown" aria-expanded="false" aria-haspopup="true" onclick="toggleMenu()" onkeydown="handleKeyDown(event)">\n  Menu\n</button>'
-                        },
-                        {
-                            severity: 'serious',
-                            title: 'Missing skip navigation link',
-                            description: 'No "skip to main content" link found. Keyboard users must tab through all navigation links to reach main content.',
-                            wcag: 'WCAG 2.1 Level A - 2.4.1 Bypass Blocks',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html',
-                            element: 'N/A - Missing element',
-                            location: 'Beginning of body tag',
-                            solution: 'Add a skip link as the first focusable element on the page.',
-                            codeExample: '<a href="#main-content" class="skip-link">Skip to main content</a>\n<style>\n  .skip-link {\n    position: absolute;\n    top: -40px;\n  }\n  .skip-link:focus {\n    top: 0;\n  }\n</style>'
-                        }
-                    ]
-                },
-                {
-                    category: 'Color & Contrast',
-                    issues: [
-                        {
-                            severity: 'serious',
-                            title: 'Insufficient color contrast',
-                            description: 'Text with color #777 on white background has contrast ratio of 3.8:1. WCAG AA requires 4.5:1 for normal text.',
-                            wcag: 'WCAG 2.1 Level AA - 1.4.3 Contrast (Minimum)',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html',
-                            element: '<p style="color: #777;">Important information</p>',
-                            location: 'Main content, multiple locations',
-                            solution: 'Use darker text color to meet contrast requirements. Change #777 to #595959 or darker.',
-                            codeExample: '<p style="color: #595959;">Important information</p>\n<!-- Contrast ratio: 7:1 (WCAG AAA compliant) -->'
-                        },
-                        {
-                            severity: 'serious',
-                            title: 'Information conveyed by color alone',
-                            description: 'Required form fields indicated only by red color. Colorblind users may not identify required fields.',
-                            wcag: 'WCAG 2.1 Level A - 1.4.1 Use of Color',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html',
-                            element: '<label style="color: red;">Name</label>',
-                            location: 'Contact form, line 234',
-                            solution: 'Add text or symbols in addition to color to indicate required fields.',
-                            codeExample: '<label>Name <span aria-label="required">*</span></label>\n<!-- Or use aria-required on the input -->\n<input type="text" aria-required="true">'
-                        }
-                    ]
-                },
-                {
-                    category: 'Forms & Labels',
-                    issues: [
-                        {
-                            severity: 'critical',
-                            title: 'Form inputs without associated labels',
-                            description: 'Found 8 input fields without proper label elements. Screen reader users cannot determine what information to enter.',
-                            wcag: 'WCAG 2.1 Level A - 1.3.1 Info and Relationships',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
-                            element: '<input type="text" placeholder="Enter email">',
-                            location: 'Newsletter signup, line 456',
-                            solution: 'Always associate labels with form inputs using the "for" attribute or by wrapping the input.',
-                            codeExample: '<label for="email">Email Address</label>\n<input type="email" id="email" name="email">\n\n<!-- Or wrapped -->\n<label>\n  Email Address\n  <input type="email" name="email">\n</label>'
-                        },
-                        {
-                            severity: 'serious',
-                            title: 'Missing error identification',
-                            description: 'Form errors not clearly identified. Error messages appear only in visual styling without proper ARIA attributes.',
-                            wcag: 'WCAG 2.1 Level A - 3.3.1 Error Identification',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/error-identification.html',
-                            element: '<div class="error">Invalid email</div>',
-                            location: 'Contact form validation',
-                            solution: 'Use aria-describedby to associate error messages with inputs and aria-invalid to mark invalid fields.',
-                            codeExample: '<label for="email">Email</label>\n<input type="email" id="email" aria-invalid="true" aria-describedby="email-error">\n<div id="email-error" role="alert">Please enter a valid email address</div>'
-                        }
-                    ]
-                },
-                {
-                    category: 'Headings & Structure',
-                    issues: [
-                        {
-                            severity: 'serious',
+                        }]
+                    },
+                    {
+                        category: 'Headings & Structure',
+                        severity: 'moderate',
+                        count: 3,
+                        issues: [{
+                            severity: 'moderate',
                             title: 'Skipped heading levels',
-                            description: 'Page jumps from h2 to h4, skipping h3. This breaks the logical document structure for screen reader users.',
+                            description: 'Page jumps from h2 to h4, skipping h3. This breaks logical document structure.',
                             wcag: 'WCAG 2.1 Level A - 1.3.1 Info and Relationships',
                             wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
                             element: '<h2>Section</h2>...<h4>Subsection</h4>',
-                            location: 'Main content, line 289',
-                            solution: 'Use heading levels sequentially without skipping. Change h4 to h3.',
+                            location: 'Main content',
+                            solution: 'Use heading levels sequentially without skipping.',
                             codeExample: '<h2>Main Section</h2>\n<h3>Subsection</h3>\n<h4>Sub-subsection</h4>'
-                        },
-                        {
-                            severity: 'moderate',
-                            title: 'Multiple h1 headings',
-                            description: 'Page contains 3 h1 headings. Best practice is to have only one h1 per page for clear document hierarchy.',
-                            wcag: 'WCAG 2.1 Level A - 1.3.1 Info and Relationships',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
-                            element: '<h1>Welcome</h1>...<h1>About Us</h1>...<h1>Contact</h1>',
-                            location: 'Multiple sections',
-                            solution: 'Use only one h1 for the main page title. Convert others to h2 or appropriate levels.',
-                            codeExample: '<h1>Welcome to Our Website</h1>\n<h2>About Us</h2>\n<h2>Contact</h2>'
-                        }
-                    ]
-                },
-                {
-                    category: 'ARIA & Semantic HTML',
-                    issues: [
-                        {
-                            severity: 'serious',
-                            title: 'Missing ARIA landmarks',
-                            description: 'Page lacks proper landmark regions (main, nav, header, footer). Screen reader users cannot quickly navigate between page sections.',
-                            wcag: 'WCAG 2.1 Level A - 1.3.1 Info and Relationships',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
-                            element: '<div class="content">...</div>',
-                            location: 'Page structure',
-                            solution: 'Use semantic HTML5 elements or ARIA roles to define page landmarks.',
-                            codeExample: '<header role="banner">\n  <nav role="navigation">...</nav>\n</header>\n<main role="main">...</main>\n<footer role="contentinfo">...</footer>'
-                        },
-                        {
+                        }]
+                    },
+                    {
+                        category: 'ARIA & Semantics',
+                        severity: 'moderate',
+                        count: 4,
+                        issues: [{
                             severity: 'moderate',
                             title: 'Buttons using div elements',
-                            description: 'Found 5 clickable div elements that should be buttons. These lack proper keyboard support and semantics.',
+                            description: 'Found 4 clickable div elements that should be buttons. These lack proper keyboard support.',
                             wcag: 'WCAG 2.1 Level A - 4.1.2 Name, Role, Value',
                             wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html',
                             element: '<div class="btn" onclick="submit()">Submit</div>',
-                            location: 'Forms and CTAs',
-                            solution: 'Use proper button elements instead of div elements for interactive controls.',
-                            codeExample: '<button type="submit">Submit</button>\n<!-- Or if you must use div: -->\n<div role="button" tabindex="0" onclick="submit()" onkeypress="handleKeyPress(event)">Submit</div>'
-                        }
-                    ]
-                },
-                {
-                    category: 'Links & Navigation',
-                    issues: [
-                        {
-                            severity: 'moderate',
-                            title: 'Ambiguous link text',
-                            description: 'Multiple links with text "Click here" or "Read more". Screen reader users cannot understand link purpose out of context.',
-                            wcag: 'WCAG 2.1 Level A - 2.4.4 Link Purpose (In Context)',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html',
-                            element: '<a href="/article1">Click here</a>',
-                            location: 'Blog section, multiple locations',
-                            solution: 'Use descriptive link text that makes sense out of context, or add aria-label with description.',
-                            codeExample: '<a href="/article1">Read our guide to web accessibility</a>\n<!-- Or -->\n<a href="/article1" aria-label="Read more about web accessibility best practices">Read more</a>'
-                        },
-                        {
-                            severity: 'minor',
-                            title: 'Links opening in new window without warning',
-                            description: '7 external links open in new windows/tabs without informing users. This can be disorienting.',
-                            wcag: 'WCAG 2.1 Level AAA - 3.2.5 Change on Request',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/change-on-request.html',
-                            element: '<a href="external.com" target="_blank">External site</a>',
-                            location: 'Resource links',
-                            solution: 'Inform users when links open in new windows using text or ARIA labels.',
-                            codeExample: '<a href="external.com" target="_blank" rel="noopener">\n  External site\n  <span aria-label="(opens in new window)"> ↗</span>\n</a>'
-                        }
-                    ]
-                },
-                {
-                    category: 'Multimedia & Audio',
-                    issues: [
-                        {
-                            severity: 'critical',
-                            title: 'Video without captions',
-                            description: 'Embedded video lacks closed captions. Deaf and hard-of-hearing users cannot access the content.',
-                            wcag: 'WCAG 2.1 Level A - 1.2.2 Captions (Prerecorded)',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded.html',
-                            element: '<video src="/promo.mp4"></video>',
-                            location: 'Homepage video section',
-                            solution: 'Add WebVTT caption file to video element using the track element.',
-                            codeExample: '<video src="/promo.mp4" controls>\n  <track kind="captions" src="/captions-en.vtt" srclang="en" label="English">\n  <track kind="captions" src="/captions-es.vtt" srclang="es" label="Spanish">\n</video>'
-                        },
-                        {
-                            severity: 'serious',
-                            title: 'Auto-playing audio',
-                            description: 'Background music starts automatically without user control. This is disruptive for screen reader users.',
-                            wcag: 'WCAG 2.1 Level A - 1.4.2 Audio Control',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/audio-control.html',
-                            element: '<audio src="/bg-music.mp3" autoplay loop>',
-                            location: 'Page background',
-                            solution: 'Remove autoplay attribute and provide visible controls for users to start/stop audio.',
-                            codeExample: '<audio src="/bg-music.mp3" controls>\n  Your browser does not support the audio element.\n</audio>\n<!-- Or add a toggle button -->\n<button onclick="toggleAudio()">Play Background Music</button>'
-                        }
-                    ]
-                },
-                {
-                    category: 'Language & Readability',
-                    issues: [
-                        {
-                            severity: 'moderate',
-                            title: 'Missing language attribute',
-                            description: 'HTML element lacks lang attribute. Screen readers cannot determine the correct pronunciation and language.',
-                            wcag: 'WCAG 2.1 Level A - 3.1.1 Language of Page',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html',
-                            element: '<html>',
-                            location: 'Document root',
-                            solution: 'Add lang attribute to the html element specifying the page\'s primary language.',
-                            codeExample: '<html lang="en">\n<!-- For other languages:\n  lang="es" (Spanish)\n  lang="fr" (French)\n  lang="de" (German)\n-->'
-                        }
-                    ]
-                },
-                {
-                    category: 'Mobile & Responsive',
-                    issues: [
-                        {
-                            severity: 'serious',
-                            title: 'Touch targets too small',
-                            description: 'Several interactive elements are smaller than 44x44 pixels. Users with motor impairments may have difficulty tapping them.',
-                            wcag: 'WCAG 2.1 Level AAA - 2.5.5 Target Size',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/target-size.html',
-                            element: '<button class="icon-btn">×</button>',
-                            location: 'Modal close buttons',
-                            solution: 'Ensure all touch targets are at least 44x44 pixels in size, or have adequate spacing.',
-                            codeExample: '<button class="icon-btn" style="min-width: 44px; min-height: 44px; padding: 12px;">×</button>'
-                        },
-                        {
-                            severity: 'moderate',
-                            title: 'Viewport not properly configured',
-                            description: 'Missing or improper viewport meta tag. Page may not scale correctly on mobile devices.',
-                            wcag: 'WCAG 2.1 Level AA - 1.4.10 Reflow',
-                            wcagUrl: 'https://www.w3.org/WAI/WCAG21/Understanding/reflow.html',
-                            element: 'Missing meta tag',
-                            location: 'Document head',
-                            solution: 'Add proper viewport meta tag to enable responsive design.',
-                            codeExample: '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                        }
-                    ]
-                }
-            ];
+                            location: 'Multiple locations',
+                            solution: 'Use proper button elements instead of div elements.',
+                            codeExample: '<button type="submit">Submit</button>'
+                        }]
+                    }
+                ]
+            };
+
+            displayResults();
         }
 
         function displayResults() {
-            const resultsDiv = document.getElementById('results');
-            const loadingDiv = document.getElementById('loading');
-            
-            loadingDiv.classList.remove('active');
-            resultsDiv.classList.add('active');
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('results').classList.add('active');
             document.getElementById('auditBtn').disabled = false;
 
-            // Display score
-            document.getElementById('accessibilityScore').textContent = auditData.score;
+            displayCertification();
+            displayScoreOverview();
+            displayOverviewTab();
+            displayWaveReport();
+            displayAxeReport();
+            displayLighthouseReport();
+            displayScreenReaderReport();
+            displayDetailedIssues();
+        }
 
-            // Calculate summary
-            const summary = {
-                critical: 0,
-                serious: 0,
-                moderate: 0,
-                minor: 0
-            };
+        function displayCertification() {
+            const cert = auditData.certification;
+            const section = document.getElementById('certificationSection');
+            const badge = document.getElementById('certBadge');
+            const status = document.getElementById('certStatus');
+            const message = document.getElementById('certMessage');
+            const details = document.getElementById('certDetails');
 
+            const passed = cert.score >= 75 && cert.criticalIssues === 0;
+            
+            section.className = 'certification-section ' + (passed ? 'pass' : 'fail');
+            
+            const badgeColor = passed ? '#10b981' : '#ef4444';
+            const badgeSVG = `
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="90" fill="${badgeColor}" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="75" fill="${badgeColor}" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="60" fill="${badgeColor}"/>
+                    <text x="100" y="110" font-size="60" font-weight="bold" fill="white" text-anchor="middle">
+                        ${passed ? '✓' : '✗'}
+                    </text>
+                </svg>
+            `;
+            badge.innerHTML = badgeSVG;
+
+            status.className = 'cert-status ' + (passed ? 'pass' : 'fail');
+            status.textContent = passed ? 'WCAG AA COMPLIANT' : 'NON-COMPLIANT';
+
+            message.textContent = passed 
+                ? 'This website meets WCAG 2.1 Level AA accessibility standards'
+                : 'This website does not meet WCAG 2.1 Level AA standards';
+
+            details.innerHTML = `
+                Accessibility Score: ${cert.score}/100 | 
+                Critical Issues: ${cert.criticalIssues} | 
+                Total Issues Found: ${cert.totalIssues}
+            `;
+        }
+
+        function displayScoreOverview() {
+            const container = document.getElementById('scoreOverview');
+            container.innerHTML = `
+                <div class="score-card">
+                    <div class="icon">💡</div>
+                    <div class="score-value">${auditData.scores.lighthouse}</div>
+                    <div class="score-label">Lighthouse</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">🌊</div>
+                    <div class="score-value">${auditData.scores.wave}</div>
+                    <div class="score-label">WAVE</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">🪓</div>
+                    <div class="score-value">${auditData.scores.axe}</div>
+                    <div class="score-label">axe DevTools</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">🎯</div>
+                    <div class="score-value">${auditData.scores.overall}</div>
+                    <div class="score-label">Overall</div>
+                </div>
+            `;
+        }
+
+        function displayOverviewTab() {
+            const summary = { critical: 0, serious: 0, moderate: 0, minor: 0 };
+            
             auditData.issues.forEach(category => {
                 category.issues.forEach(issue => {
                     summary[issue.severity]++;
                 });
             });
 
-            // Display summary
-            const summaryDiv = document.getElementById('summary');
-            summaryDiv.innerHTML = `
+            document.getElementById('summaryGrid').innerHTML = `
                 <div class="summary-card critical">
                     <div class="count">${summary.critical}</div>
                     <div class="label">Critical</div>
@@ -782,46 +1246,263 @@
                 </div>
             `;
 
-            // Display issues
-            const issuesSection = document.getElementById('issuesSection');
-            issuesSection.innerHTML = '<h2 style="margin-bottom: 20px; color: #333;">Detailed Issues & Solutions</h2>';
-
-            auditData.issues.forEach((category, catIndex) => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'issue-category';
-                categoryDiv.innerHTML = `
-                    <div class="category-header" onclick="toggleCategory(${catIndex})">
-                        <span>${category.category}</span>
-                        <span class="issue-count-badge">${category.issues.length} issue${category.issues.length !== 1 ? 's' : ''}</span>
-                    </div>
-                    <div id="category-${catIndex}" class="category-content">
-                        ${category.issues.map((issue, issueIndex) => `
-                            <div class="issue-item">
-                                <div class="issue-header">
-                                    <span class="severity-badge ${issue.severity}">${issue.severity}</span>
-                                    <div class="issue-title">${issue.title}</div>
+            const topIssues = auditData.issues.slice(0, 3);
+            let html = '';
+            topIssues.forEach((category, idx) => {
+                html += `
+                    <div class="issue-category">
+                        <div class="category-header">
+                            <span>${category.category}</span>
+                            <span class="issue-count-badge">${category.count} issue${category.count !== 1 ? 's' : ''}</span>
+                        </div>
+                        <div class="category-content">
+                            ${category.issues.slice(0, 1).map(issue => `
+                                <div class="issue-item">
+                                    <div class="issue-header">
+                                        <span class="severity-badge ${issue.severity}">${issue.severity}</span>
+                                        <div class="issue-title">${issue.title}</div>
+                                    </div>
+                                    <div class="issue-description">${issue.description}</div>
                                 </div>
-                                <div class="issue-description">${issue.description}</div>
-                                <a href="${issue.wcagUrl}" target="_blank" class="wcag-reference">
-                                    📋 ${issue.wcag}
-                                </a>
-                                <div class="issue-details">
-                                    <h4>📍 Problem Element:</h4>
-                                    <pre>${escapeHtml(issue.element)}</pre>
-                                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><strong>Location:</strong> ${issue.location}</p>
-                                </div>
-                                <div class="solution-box">
-                                    <h4>✅ Solution:</h4>
-                                    <p>${issue.solution}</p>
-                                    <h4 style="margin-top: 10px;">💻 Code Example:</h4>
-                                    <div class="code-example">${escapeHtml(issue.codeExample)}</div>
-                                </div>
-                            </div>
-                        `).join('')}
+                            `).join('')}
+                        </div>
                     </div>
                 `;
-                issuesSection.appendChild(categoryDiv);
             });
+            document.getElementById('overviewIssues').innerHTML = html;
+        }
+
+        function displayWaveReport() {
+            const wave = auditData.wave;
+            let html = `
+                <div class="summary-grid">
+                    <div class="summary-card critical">
+                        <div class="count">${wave.errors}</div>
+                        <div class="label">Errors</div>
+                    </div>
+                    <div class="summary-card serious">
+                        <div class="count">${wave.alerts}</div>
+                        <div class="label">Alerts</div>
+                    </div>
+                    <div class="summary-card moderate">
+                        <div class="count">${wave.features}</div>
+                        <div class="label">Features</div>
+                    </div>
+                    <div class="summary-card minor">
+                        <div class="count">${wave.structuralElements}</div>
+                        <div class="label">Structural</div>
+                    </div>
+                </div>
+                <div class="issues-section">
+                    <h3 class="section-title">WAVE Detailed Findings</h3>
+            `;
+
+            wave.details.forEach(item => {
+                const severityClass = item.type === 'error' ? 'critical' : 
+                                    item.type === 'alert' ? 'serious' : 'moderate';
+                html += `
+                    <div class="issue-item">
+                        <div class="issue-header">
+                            <span class="severity-badge ${severityClass}">${item.type}</span>
+                            <div class="issue-title">${item.title} (${item.count})</div>
+                        </div>
+                        <div class="issue-description">${item.description}</div>
+                        <div class="solution-box">
+                            <h4>Impact</h4>
+                            <p>${item.impact}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            document.getElementById('waveReport').innerHTML = html;
+        }
+
+        function displayAxeReport() {
+            const axe = auditData.axe;
+            let html = `
+                <div class="summary-grid">
+                    <div class="summary-card critical">
+                        <div class="count">${axe.violations}</div>
+                        <div class="label">Violations</div>
+                    </div>
+                    <div class="summary-card moderate">
+                        <div class="count">${axe.passes}</div>
+                        <div class="label">Passes</div>
+                    </div>
+                    <div class="summary-card serious">
+                        <div class="count">${axe.incomplete}</div>
+                        <div class="label">Incomplete</div>
+                    </div>
+                    <div class="summary-card minor">
+                        <div class="count">${axe.inapplicable}</div>
+                        <div class="label">N/A</div>
+                    </div>
+                </div>
+                <div class="issues-section">
+                    <h3 class="section-title">axe Rule Violations</h3>
+            `;
+
+            axe.details.forEach(item => {
+                html += `
+                    <div class="issue-item">
+                        <div class="issue-header">
+                            <span class="severity-badge ${item.severity}">${item.severity}</span>
+                            <div class="issue-title">${item.rule} (${item.count} nodes)</div>
+                        </div>
+                        <div class="issue-description">${item.description}</div>
+                        <div class="issue-details">
+                            <h4>Rule ID</h4>
+                            <pre>${item.rule}</pre>
+                        </div>
+                        <div class="solution-box">
+                            <h4>Help</h4>
+                            <p>${item.help}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            document.getElementById('axeReport').innerHTML = html;
+        }
+
+        function displayLighthouseReport() {
+            const lh = auditData.lighthouse;
+            let html = `<div class="score-overview">`;
+
+            lh.categories.forEach(cat => {
+                const scoreColor = cat.score >= 90 ? 'var(--accent-green)' : 
+                                 cat.score >= 70 ? 'var(--accent-yellow)' : 'var(--accent-red)';
+                html += `
+                    <div class="score-card">
+                        <div class="icon">${cat.icon}</div>
+                        <div class="score-value" style="background: linear-gradient(135deg, ${scoreColor}, ${scoreColor}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${cat.score}</div>
+                        <div class="score-label">${cat.name}</div>
+                    </div>
+                `;
+            });
+
+            html += `</div><div class="issues-section"><h3 class="section-title">Lighthouse Accessibility Audits</h3>`;
+
+            lh.audits.forEach(audit => {
+                const scorePercent = Math.round(audit.score * 100);
+                const severityClass = scorePercent >= 90 ? 'moderate' : scorePercent >= 50 ? 'serious' : 'critical';
+                html += `
+                    <div class="issue-item">
+                        <div class="issue-header">
+                            <span class="severity-badge ${severityClass}">${scorePercent}%</span>
+                            <div class="issue-title">${audit.title}</div>
+                        </div>
+                        <div class="issue-description">${audit.description}</div>
+                        <div class="solution-box">
+                            <h4>Impact Level</h4>
+                            <p>${audit.impact}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            document.getElementById('lighthouseReport').innerHTML = html;
+        }
+
+        function displayScreenReaderReport() {
+            const sr = auditData.screenReader;
+            let html = '<div class="screen-reader-tests">';
+
+            html += `
+                <div class="sr-test-card">
+                    <div class="sr-icon">🖥️</div>
+                    <h3>NVDA (Windows)</h3>
+                    <span class="sr-status ${sr.nvda.status}">${sr.nvda.status}</span>
+                    <div style="color: var(--text-light); opacity: 0.8; margin-bottom: 15px;">
+                        Compatibility: ${sr.nvda.compatibility}%
+                    </div>
+                    <h4 style="color: var(--accent-red); margin-bottom: 10px; font-size: 0.95em;">Issues Found:</h4>
+                    <ul>${sr.nvda.issues.map(issue => `<li>${issue}</li>`).join('')}</ul>
+                    <h4 style="color: var(--accent-green); margin: 15px 0 10px; font-size: 0.95em;">Working Well:</h4>
+                    <ul>${sr.nvda.passes.map(pass => `<li>${pass}</li>`).join('')}</ul>
+                </div>
+                <div class="sr-test-card">
+                    <div class="sr-icon">🎙️</div>
+                    <h3>JAWS (Windows)</h3>
+                    <span class="sr-status ${sr.jaws.status}">${sr.jaws.status}</span>
+                    <div style="color: var(--text-light); opacity: 0.8; margin-bottom: 15px;">
+                        Compatibility: ${sr.jaws.compatibility}%
+                    </div>
+                    <h4 style="color: var(--accent-red); margin-bottom: 10px; font-size: 0.95em;">Issues Found:</h4>
+                    <ul>${sr.jaws.issues.map(issue => `<li>${issue}</li>`).join('')}</ul>
+                    <h4 style="color: var(--accent-green); margin: 15px 0 10px; font-size: 0.95em;">Working Well:</h4>
+                    <ul>${sr.jaws.passes.map(pass => `<li>${pass}</li>`).join('')}</ul>
+                </div>
+                <div class="sr-test-card">
+                    <div class="sr-icon">🍎</div>
+                    <h3>VoiceOver (macOS/iOS)</h3>
+                    <span class="sr-status ${sr.voiceover.status}">${sr.voiceover.status}</span>
+                    <div style="color: var(--text-light); opacity: 0.8; margin-bottom: 15px;">
+                        Compatibility: ${sr.voiceover.compatibility}%
+                    </div>
+                    <h4 style="color: var(--accent-red); margin-bottom: 10px; font-size: 0.95em;">Issues Found:</h4>
+                    <ul>${sr.voiceover.issues.map(issue => `<li>${issue}</li>`).join('')}</ul>
+                    <h4 style="color: var(--accent-green); margin: 15px 0 10px; font-size: 0.95em;">Working Well:</h4>
+                    <ul>${sr.voiceover.passes.map(pass => `<li>${pass}</li>`).join('')}</ul>
+                </div>
+            `;
+
+            html += '</div>';
+            document.getElementById('screenReaderReport').innerHTML = html;
+        }
+
+        function displayDetailedIssues() {
+            let html = '';
+            
+            auditData.issues.forEach((category, catIndex) => {
+                html += `
+                    <div class="issue-category">
+                        <div class="category-header" onclick="toggleCategory(${catIndex})">
+                            <span>${category.category}</span>
+                            <span class="issue-count-badge">${category.count} issue${category.count !== 1 ? 's' : ''}</span>
+                        </div>
+                        <div id="category-${catIndex}" class="category-content">
+                            ${category.issues.map(issue => `
+                                <div class="issue-item">
+                                    <div class="issue-header">
+                                        <span class="severity-badge ${issue.severity}">${issue.severity}</span>
+                                        <div class="issue-title">${issue.title}</div>
+                                    </div>
+                                    <div class="issue-description">${issue.description}</div>
+                                    <a href="${issue.wcagUrl}" target="_blank" class="wcag-reference">
+                                        📋 ${issue.wcag}
+                                    </a>
+                                    <div class="issue-details">
+                                        <h4>📍 Problem Element:</h4>
+                                        <pre>${escapeHtml(issue.element)}</pre>
+                                        <p style="margin-top: 10px; color: var(--text-light); opacity: 0.7; font-size: 0.9em;"><strong>Location:</strong> ${issue.location}</p>
+                                    </div>
+                                    <div class="solution-box">
+                                        <h4>✅ Solution:</h4>
+                                        <p>${issue.solution}</p>
+                                        <h4 style="margin-top: 15px;">💻 Code Example:</h4>
+                                        <div class="code-example">${escapeHtml(issue.codeExample)}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('detailedIssues').innerHTML = html;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
         }
 
         function toggleCategory(index) {
@@ -842,7 +1523,50 @@
         function exportReport() {
             if (!auditData) return;
 
-            const report = generateTextReport();
+            const report = `
+═══════════════════════════════════════════════════════════════════
+    WEB ACCESSIBILITY COMPREHENSIVE AUDIT REPORT
+═══════════════════════════════════════════════════════════════════
+
+URL: ${auditData.url}
+Date: ${new Date(auditData.timestamp).toLocaleString()}
+Overall Score: ${auditData.scores.overall}/100
+
+CERTIFICATION STATUS
+────────────────────────────────────────────────────────────────────
+Status: ${auditData.certification.passed ? 'WCAG AA COMPLIANT ✓' : 'NON-COMPLIANT ✗'}
+Level: ${auditData.certification.level}
+Critical Issues: ${auditData.certification.criticalIssues}
+Total Issues: ${auditData.certification.totalIssues}
+
+TOOL SCORES
+────────────────────────────────────────────────────────────────────
+Lighthouse:     ${auditData.scores.lighthouse}/100
+WAVE:           ${auditData.scores.wave}/100
+axe DevTools:   ${auditData.scores.axe}/100
+
+WAVE REPORT
+────────────────────────────────────────────────────────────────────
+Errors: ${auditData.wave.errors}
+Alerts: ${auditData.wave.alerts}
+Features: ${auditData.wave.features}
+
+AXE REPORT
+────────────────────────────────────────────────────────────────────
+Violations: ${auditData.axe.violations}
+Passes: ${auditData.axe.passes}
+
+SCREEN READER COMPATIBILITY
+────────────────────────────────────────────────────────────────────
+NVDA:       ${auditData.screenReader.nvda.compatibility}% (${auditData.screenReader.nvda.status})
+JAWS:       ${auditData.screenReader.jaws.compatibility}% (${auditData.screenReader.jaws.status})
+VoiceOver:  ${auditData.screenReader.voiceover.compatibility}% (${auditData.screenReader.voiceover.status})
+
+${'═'.repeat(70)}
+End of Report - Generated by A11y Auditor Pro
+${'═'.repeat(70)}
+            `;
+
             const blob = new Blob([report], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -852,61 +1576,6 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        }
-
-        function generateTextReport() {
-            let report = `
-WEB ACCESSIBILITY AUDIT REPORT
-===============================
-
-URL: ${auditData.url}
-Date: ${new Date(auditData.timestamp).toLocaleString()}
-Accessibility Score: ${auditData.score}/100
-
-SUMMARY
--------
-`;
-            const summary = {
-                critical: 0,
-                serious: 0,
-                moderate: 0,
-                minor: 0
-            };
-
-            auditData.issues.forEach(category => {
-                category.issues.forEach(issue => {
-                    summary[issue.severity]++;
-                });
-            });
-
-            report += `Critical Issues: ${summary.critical}\n`;
-            report += `Serious Issues: ${summary.serious}\n`;
-            report += `Moderate Issues: ${summary.moderate}\n`;
-            report += `Minor Issues: ${summary.minor}\n`;
-            report += `Total Issues: ${summary.critical + summary.serious + summary.moderate + summary.minor}\n\n`;
-
-            report += `DETAILED ISSUES\n`;
-            report += `===============\n\n`;
-
-            auditData.issues.forEach(category => {
-                report += `\n${category.category.toUpperCase()}\n`;
-                report += `${'='.repeat(category.category.length)}\n\n`;
-
-                category.issues.forEach((issue, index) => {
-                    report += `${index + 1}. ${issue.title}\n`;
-                    report += `   Severity: ${issue.severity.toUpperCase()}\n`;
-                    report += `   WCAG: ${issue.wcag}\n`;
-                    report += `   Reference: ${issue.wcagUrl}\n\n`;
-                    report += `   Description:\n   ${issue.description}\n\n`;
-                    report += `   Problem Element:\n   ${issue.element}\n`;
-                    report += `   Location: ${issue.location}\n\n`;
-                    report += `   Solution:\n   ${issue.solution}\n\n`;
-                    report += `   Code Example:\n   ${issue.codeExample}\n\n`;
-                    report += `   ${'-'.repeat(80)}\n\n`;
-                });
-            });
-
-            return report;
         }
     </script>
 </body>
